@@ -8,10 +8,5 @@ handlers:
   - url: /.*
     secure: always
     script: auto
-env_variables:
-  DATABASE_USERNAME:"api"
-  DATABASE_HOST:34.31.176.85
-  DATABASE_PASSWORD:api
-  DATABASE_PORT:5432
 
 
