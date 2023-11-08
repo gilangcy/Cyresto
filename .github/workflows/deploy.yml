@@ -26,14 +26,20 @@ jobs:
     #   with:
     #     name: "key.json"
     #     json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+    # - name: create env
+    #   run : "create-env"
+    #   env:
+    #   - 'DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}'
+    #   - 'DATABASE_HOST=${{ secrets.DATABASE_HOST }}'
+    #   - 'DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}'
+    #   - 'DATABASE_PORT=${{ secrets.DATABASE_PORT }}'
     - name: create env
-      run : "create-env"
-      env:
-      - 'DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}'
-      - 'DATABASE_HOST=${{ secrets.DATABASE_HOST }}'
-      - 'DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}'
-      - 'DATABASE_PORT=${{ secrets.DATABASE_PORT }}'
-
+      run : |
+        touch .env
+        echo DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} >> .env
+        echo DATABASE_HOST=${{ secrets.DATABASE_HOST }} >> .env
+        echo DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} >> .env
+        echo DATABASE_PORT=${{ secrets.DATABASE_PORT }} >> .env
     - id: 'auth'
       name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v0
