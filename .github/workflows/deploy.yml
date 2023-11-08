@@ -5,7 +5,7 @@ on: push
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: ahsanalhadits
+    environment: cyresto
     strategy:
       fail-fast: false
       matrix:
