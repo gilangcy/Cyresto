@@ -30,10 +30,11 @@ jobs:
       entrypoint: npm
       args: ["run", "create-env"]
       env:
-        - 'DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}'
-        - 'DATABASE_HOST=${{ secrets.DATABASE_HOST }}'
-        - 'DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}'
-        - 'DATABASE_PORT=${{ secrets.DATABASE_PORT }}'
+      - 'DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}'
+      - 'DATABASE_HOST=${{ secrets.DATABASE_HOST }}'
+      - 'DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}'
+      - 'DATABASE_PORT=${{ secrets.DATABASE_PORT }}'
+      
     - id: 'auth'
       name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v0
