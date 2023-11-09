@@ -22,7 +22,8 @@ Base URL : https://cyresto.uc.r.appspot.com/api
 - You can test the API from Postman in this link 
     - [Postman Link](https://cyresto.postman.co/workspace/Team-Workspace~6d76e187-de30-4540-82de-5feb0432a83e/collection/31021070-8b31afc6-8d9f-459e-b278-c280b2e57a55?action=share&creator=31021070)
 - or access the API directly 
-    example (to return list of menu) : https://cyresto.uc.r.appspot.com/api/v1/consumer/menu
+    - example (to return list of menu) :
+     https://cyresto.uc.r.appspot.com/api/v1/consumer/menu
 
 ### How to run this API locally 
 1. Make sure on your local already installed :

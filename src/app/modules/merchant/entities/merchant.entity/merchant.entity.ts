@@ -1,8 +1,11 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class MerchantEntity {
-    @PrimaryColumn({unique: true,name:'name',nullable:false})
+    @PrimaryGeneratedColumn()
+    id:number
+
+    @Column({unique: true,name:'name',nullable:false})
     name:string;
 
     @Column({name:'longitude',nullable:false,type: 'real'})
