@@ -1,6 +1,8 @@
 name: deploy
 
-on: push
+on: 
+  push :
+    - main
 
 jobs:
   deploy:
@@ -18,11 +20,13 @@ jobs:
         node-version: 20
     - run: npm ci
     - run: npm run build
-    # - name: 'Create GAC File'
-    #   uses: jsdaniell/create-json@1.1.2
-    #   with:
-    #     name: "key.json"
-    #     json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+    - name: create env
+      run : |
+        touch .env
+        echo DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} >> .env
+        echo DATABASE_HOST=${{ secrets.DATABASE_HOST }} >> .env
+        echo DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} >> .env
+        echo DATABASE_PORT=${{ secrets.DATABASE_PORT }} >> .env
     - id: 'auth'
       name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v0
