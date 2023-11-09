@@ -10,5 +10,6 @@ async function bootstrap() {
     type: VersioningType.URI,
   });
   await app.listen(port);
+  console.log(`Application running at ${await app.getUrl()}`)
 }
 bootstrap();

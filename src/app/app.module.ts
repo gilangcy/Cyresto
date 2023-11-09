@@ -5,6 +5,7 @@ import { MerchantModule } from './modules/merchant/merchant.module';
 import { MenuModule } from './modules/menu/menu.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { OrderModule } from './modules/order/order.module';
 
 @Module({
   imports: [ConfigModule.forRoot(),TypeOrmModule.forRoot({
@@ -16,7 +17,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     'database': 'postgres',
     'entities':['dist/**/**/*.entity{.js,.ts}'],
     'synchronize':true
-  }),MerchantModule, MenuModule],
+  }),MerchantModule, MenuModule, OrderModule],
   controllers: [AppController],
   providers: [AppService],
 })
