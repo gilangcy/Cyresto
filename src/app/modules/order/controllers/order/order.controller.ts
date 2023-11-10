@@ -14,14 +14,13 @@ export class OrderController {
     @Version('1')
     @Get('cart')
     getAllItemCart() :object{
-        return this.CartService.findAll()
+        return this.CartService.findAll()[0]
     }
 
     @Version('1')
     @Post('cart')
     AddCartItem(@Body() cart:CartDto): CartDto{
         return this.CartService.create(cart);
-        
     }
 
     @Version('1')
@@ -33,17 +32,38 @@ export class OrderController {
 
     @Version('1')
     @Delete('cart/:id/')
-    DeleteCartItem(@Param() params:any) : boolean{
-        return this.CartService.delete(parseInt(params.id))
+    DeleteCartItem(@Param() params:any) : Object{
+        let affected;
+        if (this.CartService.delete(parseInt(params.id))){
+            affected = "1"
+        }
+        else {
+            affected = "0"
+        }
+        return {
+            "affected": `${affected}`
+        }
     }
 
 
     @Version('1')
     @Post('checkout')
-    async checkout(): Promise<OrderDto>{
-        const cartObject = this.CartService.findAll()
-        this.CartService.empty()
-        return this.OrderService.checkout(cartObject)
+    async checkout(): Promise<Object>{
+        const [cartObject,cartSize] = this.CartService.findAll()
+        if (cartSize > 0){
+            this.CartService.empty()
+            return this.OrderService.checkout(cartObject)
+        }
+        else{
+            return {
+                "error": {
+                    "code": "400",
+                    "message": "Bad Request, Order not Created",
+                    "details": `There is no item in the cart, please make sure add an item to cart`
+                } 
+            }
+        }
+        
     }
 
     @Version('1')

@@ -23,12 +23,12 @@ export class CartService {
         
     }
 
-    findAll(): Object {
+    findAll(): [Object,number] {
         const cartObject = {};
         this.carts.forEach((value, key) => {
             cartObject[key] = value;
         });
-        return cartObject;
+        return [cartObject, this.carts.size]
     }
 
     edit(cart_id:number,newCart:CartDto):CartDto{
