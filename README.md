@@ -21,6 +21,8 @@ Base URL : https://cyresto.uc.r.appspot.com/api
 | Create Menu                | Add Menu information to db         | api/v1/producer/merchant/                        | POST   |
 | Delete Menu                | Delete a Menu information in db    | api/v1/producer/merchant/<menu_id>           | DELETE |
 
+#### Database Schema
+![db-scheme](https://github.com/gilangcy/Cyresto/blob/main/public/DB%20%20Schema%20Cyresto.png)
 
 ### Testing the API
 - You can test the API from Postman in this link 
