@@ -14,11 +14,13 @@ export class CartService {
                 count : oldCart.count + cart.count
             }
             this.carts.set(updatedCart.menu_id,updatedCart)
+            return updatedCart
         }
         else{
             this.carts.set(cart.menu_id,cart)
+            return cart
         }
-        return cart
+        
     }
 
     findAll(): Object {
@@ -43,11 +45,13 @@ export class CartService {
     delete(cartId:number) : boolean{
         if (this.carts.has(cartId)) {
             this.carts.delete(cartId);
-            console.log(`Deleted ${cartId}`);
             return true
           } else {
-            console.log(`${cartId} not found in the map`);
             return false
           }
+    }
+
+    empty():void{
+        this.carts.clear()
     }
 }

@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post, Version } from '@nestjs/common';
-import { LocationService } from '../services/location/location.service';
-import { MerchantDto } from '../dtos/merchant.dto/merchant.dto';
+import {  Controller, Get, Param, Version } from '@nestjs/common';
+import { LocationService } from '../../services/location/location.service';
+import { MerchantDto } from '../../dtos/merchant.dto/merchant.dto';
 
 @Controller("consumer/merchant")
 export class MerchantController {
@@ -10,31 +10,6 @@ export class MerchantController {
     @Get('location')
     getAllMerchantLocation() : Promise<MerchantDto[]>{
         return this.LocationService.findAll()
-    }
-
-    
-
-    @Version('1')
-    @Post('/')
-    async createMerchantLocation(@Body() merchant:MerchantDto): Promise<Object>{
-        try{
-            return await this.LocationService.create(merchant);
-        }
-        catch(error){
-            return {
-                "error": {
-                    "code": error.code,
-                    "message": error.name,
-                    "details": error.message
-                } 
-            }
-        }
-    }
-
-    @Version('1')
-    @Delete(':merchant_id')
-    deleteMerchantLocation(@Param() params:any) : Promise<Object>{
-        return this.LocationService.delete(params.merchant_id)
     }
 
     @Version('1')

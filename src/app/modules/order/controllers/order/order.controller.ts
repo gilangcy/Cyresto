@@ -42,6 +42,7 @@ export class OrderController {
     @Post('checkout')
     async checkout(): Promise<OrderDto>{
         const cartObject = this.CartService.findAll()
+        this.CartService.empty()
         return this.OrderService.checkout(cartObject)
     }
 
