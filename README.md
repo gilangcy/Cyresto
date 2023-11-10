@@ -1,6 +1,9 @@
 ![Cyresto](https://geekflare.com/wp-content/uploads/2022/03/howfoodapiworks.png)
 ### Overview
-Cyresto is a Restful API built using NestJS. This API serves to be an example project of a consumer API for a Food Order Application. We use PostgreSQL for the SQL database and deploy it via CI/CD in Google App Engine.
+Cyresto is a Restful API built using NestJS. This API serves to be an example project of a consumer API for a Food Order Application. We use PostgreSQL for the SQL database and deploy it via CI/CD in Google App Engine. The Repo contains :
+- [API Details](#api-details)
+- [Testing the API](#testing-the-api)
+- [How to run the API in Local](#how-to-run-this-API-locally)
 
 ### API Details
 Base URL : https://cyresto.uc.r.appspot.com/api
