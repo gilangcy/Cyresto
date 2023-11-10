@@ -21,18 +21,6 @@ jobs:
         node-version: 20
     - run: npm ci
     - run: npm run build
-    # - name: 'Create GAC File'
-    #   uses: jsdaniell/create-json@1.1.2
-    #   with:
-    #     name: "key.json"
-    #     json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-    # - name: create env
-    #   run : "create-env"
-    #   env:
-    #   - 'DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}'
-    #   - 'DATABASE_HOST=${{ secrets.DATABASE_HOST }}'
-    #   - 'DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}'
-    #   - 'DATABASE_PORT=${{ secrets.DATABASE_PORT }}'
     - name: create env
       run : |
         touch .env
