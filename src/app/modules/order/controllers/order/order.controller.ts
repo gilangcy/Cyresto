@@ -1,9 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post, Version } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Version } from '@nestjs/common';
 import { CartService } from '../../services/cart/cart.service';
 import { CartDto } from '../../dtos/cart.dto/cart.dto';
 import { OrderDto } from '../../dtos/order.dto/order.dto';
 import { OrderService } from '../../services/order/order.service';
-import { OrderItemDto } from '../../dtos/order-item.dto/order-item.dto';
 
 @Controller('consumer/order')
 export class OrderController {
@@ -26,47 +25,24 @@ export class OrderController {
     }
 
     @Version('1')
-    @Delete('cart')
-    DeleteCartItem() : boolean{
-        return this.CartService.delete()
+    @Put('cart/:id/')
+    EditCartItem(@Param() params:any,@Body() cart:CartDto): CartDto{
+        return this.CartService.edit(parseInt(params.id),cart);
+        
     }
 
     @Version('1')
-    @Get('checkout')
-    checkout(): boolean{
+    @Delete('cart/:id/')
+    DeleteCartItem(@Param() params:any) : boolean{
+        return this.CartService.delete(parseInt(params.id))
+    }
+
+
+    @Version('1')
+    @Post('checkout')
+    async checkout(): Promise<OrderDto>{
         const cartObject = this.CartService.findAll()
-        for (let item in cartObject){
-            console.log(cartObject)
-            console.log(item)
-            console.log(cartObject[0])
-        }
-        return true
-        // try{
-        //     const createdOrder = await this.OrderService.create({
-        //         id:null,
-        //         orderItems :[],
-        //         total_amount:0
-        //     })
-        //     const orderId = createdOrder.id
-            
-        //     // for (let item in cartObject) {
-        //     //     this.OrderService.addItem({
-        //     //         id: 0,
-        //     //         name: '',
-        //     //         count: 0
-        //     //     },orderId)
-        //     // }
-        //     console.log()
-        //     return true
-        // }
-        // catch (error) {
-        //     // Handle errors if the promise is rejected
-        //     console.error('An error occurred:', error);
-        //     return false
-        // }
-            
-        
-        
+        return this.OrderService.checkout(cartObject)
     }
 
     @Version('1')
@@ -75,10 +51,5 @@ export class OrderController {
         return this.OrderService.findAll()
     }
 
-    // @Version('1')
-    // @Get(':merchant_name/location')
-    // getMerchantDetailLocation(@Param() params:any) : Promise<MerchantDto>{
-    //     return this.CartService.findOne(params.merchant_name)
-    // }
 }
 

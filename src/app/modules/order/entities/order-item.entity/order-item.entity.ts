@@ -16,5 +16,6 @@ order : OrderEntity
 
 @Column({name:'count',nullable:false})
 count:number;
+    orderItem: Promise<OrderEntity>;
 }
 

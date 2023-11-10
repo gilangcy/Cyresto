@@ -3,32 +3,25 @@ import { CartDto } from '../../dtos/cart.dto/cart.dto';
 
 @Injectable()
 export class CartService {
-    public carts  = new Map<string, CartDto>()
+    public carts  = new Map<number, CartDto>()
 
     create(cart:CartDto):CartDto{
-        console.log(cart.name)
-        console.log(this.carts)
-        this.carts.forEach((value: CartDto, key: string) => {
-            console.log(key, value);
-        });
-        console.log(this.carts.has(cart.name))
-        if (this.carts.has(cart.name)){
-            const oldCart = this.carts.get(cart.name)
+        if (this.carts.has(cart.id)){
+            const oldCart = this.carts.get(cart.id)
             const updatedCart = {
                 id : oldCart.id,
                 name: oldCart.name,
                 count : oldCart.count + cart.count
             }
-            this.carts.set(updatedCart.name,updatedCart)
+            this.carts.set(updatedCart.id,updatedCart)
         }
         else{
-            this.carts.set(cart.name,cart)
+            this.carts.set(cart.id,cart)
         }
         return cart
     }
 
     findAll(): Object {
-        console.log(this.carts)
         const cartObject = {};
         this.carts.forEach((value, key) => {
             cartObject[key] = value;
@@ -36,7 +29,25 @@ export class CartService {
         return cartObject;
     }
 
-    delete() : boolean{
-        return true;
+    edit(cart_id:number,newCart:CartDto):CartDto{
+        const oldCart = this.carts.get(cart_id)
+        const updatedCart = {
+            id : oldCart.id,
+            name: newCart.name,
+            count : newCart.count
+        }
+        this.carts.set(updatedCart.id,updatedCart)
+        return updatedCart
+    }
+
+    delete(cartId:number) : boolean{
+        if (this.carts.has(cartId)) {
+            this.carts.delete(cartId);
+            console.log(`Deleted ${cartId}`);
+            return true
+          } else {
+            console.log(`${cartId} not found in the map`);
+            return false
+          }
     }
 }
