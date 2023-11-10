@@ -6,17 +6,17 @@ export class CartService {
     public carts  = new Map<number, CartDto>()
 
     create(cart:CartDto):CartDto{
-        if (this.carts.has(cart.id)){
-            const oldCart = this.carts.get(cart.id)
+        if (this.carts.has(cart.menu_id)){
+            const oldCart = this.carts.get(cart.menu_id)
             const updatedCart = {
-                id : oldCart.id,
+                menu_id : oldCart.menu_id,
                 name: oldCart.name,
                 count : oldCart.count + cart.count
             }
-            this.carts.set(updatedCart.id,updatedCart)
+            this.carts.set(updatedCart.menu_id,updatedCart)
         }
         else{
-            this.carts.set(cart.id,cart)
+            this.carts.set(cart.menu_id,cart)
         }
         return cart
     }
@@ -32,11 +32,11 @@ export class CartService {
     edit(cart_id:number,newCart:CartDto):CartDto{
         const oldCart = this.carts.get(cart_id)
         const updatedCart = {
-            id : oldCart.id,
+            menu_id : oldCart.menu_id,
             name: newCart.name,
             count : newCart.count
         }
-        this.carts.set(updatedCart.id,updatedCart)
+        this.carts.set(updatedCart.menu_id,updatedCart)
         return updatedCart
     }
 

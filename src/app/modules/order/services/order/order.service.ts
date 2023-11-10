@@ -29,7 +29,7 @@ export class OrderService {
         const orderEntity = await this.OrderRepository.findOne({where:{
             id:order_id}})
         const menuEntity = await this.MenuRepository.findOne({where:{
-            id:order.id}})
+            id:order.menu_id}})
     
         orderItem.order = orderEntity
         orderItem.menu = menuEntity
