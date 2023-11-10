@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { MerchantEntity } from '../../entities/merchant.entity/merchant.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { MerchantDto } from '../../dtos/merchant.dto/merchant.dto';
 
 @Injectable()
@@ -11,16 +11,20 @@ export class LocationService {
         private merchantRepository : Repository<MerchantEntity>
     ){}
 
-    create(order: MerchantDto): Promise<MerchantDto> {
-        return this.merchantRepository.save(order);
+    create(merchant: MerchantDto): Promise<MerchantDto> {
+        return this.merchantRepository.save(merchant);
     }
 
     findAll():Promise<MerchantDto[]>{
         return this.merchantRepository.find();
     }
     
-    findOne(merchant_name:string):Promise<MerchantDto>{
+    findOne(id:number):Promise<MerchantDto>{
         return this.merchantRepository.findOneBy({
-            name: merchant_name});
+            id: id});
+    }
+
+    delete(id:number): Promise<DeleteResult>{
+        return this.merchantRepository.delete(id)
     }
 }

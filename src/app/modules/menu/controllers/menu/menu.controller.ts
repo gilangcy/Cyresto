@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Param, Post, Version } from '@nestjs/common';
-import { MerchantDto } from 'src/app/modules/merchant/dtos/merchant.dto/merchant.dto';
 import { MenuService } from '../../services/menu/menu.service';
 import { MenuDto } from '../../dtos/menu.dto/menu.dto';
 
@@ -14,15 +13,21 @@ export class MenuController {
     }
 
     @Version('1')
-    @Post('/')
-    createMerchantLocation(@Body() merchant:MenuDto): Promise<MenuDto>{
-        return this.MenuService.create(merchant);
-    }
-
-    @Version('1')
-    @Get('menu/:id/')
-    getMerchantDetailLocation(@Param() params:any) : Promise<MenuDto>{
-        return this.MenuService.findOne(params.id)
+    @Get(':menu_id')
+    async getMenu(@Param() params:any) : Promise<Object>{
+        const menuInformation = await this.MenuService.findOne(params.menu_id)
+        if (menuInformation != null ){
+            return menuInformation
+        }
+        else {
+            return {
+                "error": {
+                    "code": "404",
+                    "message": "The requested menu was not found",
+                    "details": `Menu with ID ${ params.menu_id } was not found in the database.`
+                } 
+            }
+        }
     }
 }
 

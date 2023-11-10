@@ -1,5 +1,5 @@
 export class CartDto {
-    id : number
+    menu_id : number
     name : string
     count : number
 }
